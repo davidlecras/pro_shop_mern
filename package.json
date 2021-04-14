@@ -1,0 +1,31 @@
+{
+  "name": "pro_shop_mern",
+  "version": "1.0.0",
+  "description": "MERN e-shop cart app",
+  "main": "server.js",
+  "type":"module",
+  "scripts": {
+    "start": "node backend/server",
+    "server": "nodemon backend/server",
+    "client": "npm start --prefix frontend",
+    "dev": "concurrently \"npm run server\" \"npm run client\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidlecras/pro_shop_mern.git"
+  },
+  "author": "David Lecras",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/davidlecras/pro_shop_mern/issues"
+  },
+  "homepage": "https://github.com/davidlecras/pro_shop_mern#readme",
+  "dependencies": {
+    "concurrently": "^6.0.2",
+    "dotenv": "^8.2.0",
+    "express": "^4.17.1",
+    "i": "^0.3.6",
+    "nodemon": "^2.0.7",
+    "npm": "^7.9.0"
+  }
+}
