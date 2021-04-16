@@ -20,7 +20,7 @@ router.get('/:id', expreAsyncHandler(async (req, res) => {
     if (product) {
         res.json(product)
     } else {
-        res.status(404).json({ message: 'Produit non trouvé' })
+        res.status(404).json('Produit non trouvé')
     }
 }))
 
