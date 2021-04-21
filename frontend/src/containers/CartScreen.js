@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import { Row, Col, ListGroup, FormControl, Button, Image, Card } from 'react-bootstrap'
 import { useDispatch, useSelector } from 'react-redux'
 import Message from '../components/Message'
-import { addToCart } from '../actions/cartActions'
+import { addToCart, removeFromCart } from '../actions/cartActions'
 
 const CartScreen = ({ match, location, history }) => {
     const productId = match.params.id
@@ -20,8 +20,13 @@ const CartScreen = ({ match, location, history }) => {
     }, [dispatch, productId, qty])
 
     const removeFromCartHandler = (id) => {
-        console.log('hello');
+        dispatch(removeFromCart(id))
     }
+
+    const checkOutHandler = (id) => {
+        history.push('/login?redirect=shipping')
+    }
+
     return (
         <Row>
             <Col md={8}>
@@ -37,7 +42,7 @@ const CartScreen = ({ match, location, history }) => {
                                         <Image src={item.image} alt={item.name} fluid rounded />
                                     </Col>
                                     <Col md={3} className="my-auto">
-                                        <Link to={`/product/${item.product}`}>{item.name}</Link>
+                                        <Link to={`/products/${item.product}`}>{item.name}</Link>
                                     </Col>
                                     <Col md={2} className="my-auto">
                                         {item.price}€
@@ -66,9 +71,22 @@ const CartScreen = ({ match, location, history }) => {
                     </ListGroup>
                 }
             </Col>
-            <Col md={2}></Col>
-            <Col md={2}></Col>
-        </Row>
+            <Col md={4}>
+                <Card>
+                    <ListGroup variant='flush'>
+                        <ListGroup.Item>
+                            <h2>Sous-total ({cartItems.reduce((acc, item) => acc + item.qty, 0)}) articles</h2>
+                            {cartItems.reduce((acc, item) => acc + item.qty * item.price, 0).toFixed(2)}€
+                        </ListGroup.Item>
+                        <ListGroup.Item>
+                            <Button className='btn-block' variant='primary' disabled={cartItems.length === 0} onClick={checkOutHandler}>
+                                Valider le pannier
+                            </Button>
+                        </ListGroup.Item>
+                    </ListGroup>
+                </Card>
+            </Col>
+        </Row >
     )
 }
 
